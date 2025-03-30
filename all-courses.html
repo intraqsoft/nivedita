@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Courses - Your Institute Name</title>
+    <!-- Add Font Awesome for better icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- Add AOS library for scroll animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+    <style>
+        /* Base Styles and Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Nav bar styles (placeholder - you can integrate with your existing nav) */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        
+        /* Header Section */
+        .header-section {
+            background: linear-gradient(135deg, #4a6bff 0%, #2b3ff0 100%);
+            color: white;
+            padding: 100px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-section::before {
+            content: "";
+            position: absolute;
+            width: 150%;
+            height: 100px;
+            background: white;
+            bottom: -50px;
+            left: -25%;
+            border-radius: 50%;
+        }
+        
+        .header-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .header-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        
+        /* Courses Section */
+        .courses-section {
+            padding: 80px 0;
+            position: relative;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-subtitle {
+            color: #4a6bff;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        .section-description {
+            max-width: 800px;
+            margin: 0 auto;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Course Filter */
+        .course-filter {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            gap: 10px;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 8px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            color: #555;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: #4a6bff;
+            color: white;
+            border-color: #4a6bff;
+            box-shadow: 0 4px 10px rgba(74, 107, 255, 0.3);
+        }
+        
+        /* Courses Grid */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .course-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .course-header {
+            padding: 30px 25px 25px;
+            background: linear-gradient(45deg, #f8f9fa 0%, #ffffff 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+        }
+        
+        .course-title {
+            margin: 0;
+            font-size: 1.6rem;
+            color: #333;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .course-card:hover .course-title {
+            color: #4a6bff;
+        }
+        
+        .course-icon {
+            font-size: 2.5rem;
+            height: 60px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f0f4ff;
+            color: #4a6bff;
+            transition: all 0.3s ease;
+        }
+        
+        .course-card:hover .course-icon {
+            background: #4a6bff;
+            color: white;
+            transform: rotate(360deg);
+        }
+        
+        .course-body {
+            padding: 25px;
+            position: relative;
+        }
+        
+        .course-description {
+            margin-bottom: 25px;
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+        
+        .course-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .course-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            padding-left: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .course-features li:hover {
+            transform: translateX(5px);
+            color: #4a6bff;
+        }
+        
+        .feature-check {
+            color: #4a6bff;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+        
+        .course-action {
+            text-align: center;
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            width: 100%;
+            border: 2px solid #4a6bff;
+            color: #4a6bff;
+            background: transparent;
+        }
+        
+        .course-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            background: #4a6bff;
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+        
+        .course-btn:hover {
+            color: white;
+        }
+        
+        .course-btn:hover::before {
+            width: 100%;
+        }
+        
+        /* Badge for popular courses */
+        .course-badge {
+            position: absolute;
+            top: 3px;
+            /* right: -10px; */
+            background: #ff5a5f;
+            color: white;
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(255, 90, 95, 0.3);
+            z-index: 2;
+            transform: rotate(1deg);
+        }
+        
+        /* Back button */
+        .back-btn-container {
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .back-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #4a6bff;
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(74, 107, 255, 0.3);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .back-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transform: translateX(-100%);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(74, 107, 255, 0.4);
+        }
+        
+        .back-btn:hover::after {
+            transform: translateX(0);
+        }
+        
+        /* Float animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* Pulse animation */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Shine effect */
+        .shine-effect {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right, 
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.3) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            transform: rotate(30deg);
+            transition: all 0.7s ease;
+            opacity: 0;
+        }
+        
+        .shine-effect:hover::after {
+            opacity: 1;
+            transform: rotate(30deg) translate(100%, -100%);
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .courses-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .header-title {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .header-title {
+                font-size: 2.3rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-section {
+                padding: 70px 0 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header-section">
+        <div class="container">
+            <h1 class="header-title" data-aos="fade-up">Empower Your Future</h1>
+            <p class="header-subtitle" data-aos="fade-up" data-aos-delay="100">Discover our specially designed courses to help you achieve academic excellence and career success.</p>
+        </div>
+    </header>
+    
+    <section id="all-courses" class="section courses-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-subtitle" data-aos="fade-up">Our Programs</div>
+                <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Complete Course Offerings</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="200">Explore our full range of specialized courses designed to help you excel in various competitive examinations.</p>
+            </div>
+            
+            <!-- Course Filter -->
+            <div class="course-filter" data-aos="fade-up" data-aos-delay="300">
+                <button class="filter-btn active">All Courses</button>
+                <button class="filter-btn">Engineering</button>
+                <button class="filter-btn">Medical</button>
+                <button class="filter-btn">Civil Services</button>
+                <button class="filter-btn">Management</button>
+                <button class="filter-btn">Language</button>
+                <button class="filter-btn">Banking</button>
+                <button class="filter-btn">Law</button>
+            </div>
+            
+            <div class="courses-grid">
+                <!-- JEE Preparation -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="100">
+                    <div class="course-badge">Popular</div>
+                    <div class="course-header">
+                        <h3 class="course-title">JEE Preparation</h3>
+                        <div class="course-icon"><i class="fas fa-atom"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Comprehensive preparation for JEE Main and Advanced with focus on Physics, Chemistry, and Mathematics.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Regular mock tests and practice sessions</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Problem-solving techniques</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Doubt clearing sessions</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Previous year papers analysis</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- NEET Preparation -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="200">
+                    <div class="course-badge">High Demand</div>
+                    <div class="course-header">
+                        <h3 class="course-title">NEET Preparation</h3>
+                        <div class="course-icon"><i class="fas fa-heartbeat"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Specialized coaching for NEET aspirants with in-depth coverage of Biology, Physics, and Chemistry.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Comprehensive study material</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Concept-based learning</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Weekly test series</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Individual performance analysis</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bank PO & Clerk -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="300">
+                    <div class="course-header">
+                        <h3 class="course-title">Bank PO & Clerk</h3>
+                        <div class="course-icon"><i class="fas fa-landmark"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Complete preparation for banking examinations including reasoning, quantitative aptitude, and English.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Shortcut methods for calculations</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Current affairs updates</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Interview preparation</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Mock exams with real exam pattern</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- UPSC Civil Services -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="100">
+                    <div class="course-badge">Top Rated</div>
+                    <div class="course-header">
+                        <h3 class="course-title">UPSC Civil Services</h3>
+                        <div class="course-icon"><i class="fas fa-balance-scale"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Structured coaching for UPSC aspirants with comprehensive coverage of all subjects and current affairs.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Integrated study approach</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Daily current affairs analysis</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Essay writing practice</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Mock interviews by experts</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SSC Exams -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="200">
+                    <div class="course-header">
+                        <h3 class="course-title">SSC Exams</h3>
+                        <div class="course-icon"><i class="fas fa-file-alt"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Expert coaching for various SSC examinations with focus on all required subjects and exam patterns.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Topic-wise practice tests</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Time management techniques</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Bilingual study material</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Speed enhancement exercises</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- GATE Preparation -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="300">
+                    <div class="course-header">
+                        <h3 class="course-title">GATE Preparation</h3>
+                        <div class="course-icon"><i class="fas fa-cogs"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Specialized coaching for engineering graduates preparing for GATE with subject-specific training.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Core subject mastery</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Topic-wise tests</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Technical aptitude training</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Previous papers discussion</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Spoken English Coaching -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="200">
+                    <div class="course-badge">Most Popular</div>
+                    <div class="course-header">
+                        <h3 class="course-title">Spoken English</h3>
+                        <div class="course-icon"><i class="fas fa-comments"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Comprehensive English language program focusing on pronunciation, fluency, grammar, and conversational skills.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Small batch interactive sessions</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Personalized feedback</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Role-play activities</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Audio-visual learning aids</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- IELTS Coaching -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="300">
+                    <div class="course-badge">Tech Skills</div>
+                    <div class="course-header">
+                        <h3 class="course-title">Programming Languages Training</h3>
+                        <div class="course-icon"><i class="fas fa-code"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Comprehensive training in various programming languages including Python, Java, JavaScript, and C++ for beginners and advanced learners.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Hands-on coding practice</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Real-world project development</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Industry-oriented curriculum</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Job-ready portfolio creation</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CLAT Coaching -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="100">
+                    <div class="course-header">
+                        <h3 class="course-title">CLAT Coaching</h3>
+                        <div class="course-icon"><i class="fas fa-gavel"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Specialized training for Common Law Admission Test with focus on legal aptitude, logical reasoning, and current affairs.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Legal reasoning practice</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Reading comprehension techniques</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Analytical skill development</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> GK & current affairs updates</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- RRB Exam Coaching -->
+                <div class="course-card shine-effect" data-aos="fade-up" data-aos-delay="200">
+                    <div class="course-header">
+                        <h3 class="course-title">RRB Exam Coaching</h3>
+                        <div class="course-icon"><i class="fas fa-train"></i></div>
+                    </div>
+                    <div class="course-body">
+                        <p class="course-description">Comprehensive coaching for Railway Recruitment Board examinations with specialized focus on all required subjects.</p>
+                        <ul class="course-features">
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Subject-specific training</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Exam pattern analysis</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Speed and accuracy drills</li>
+                            <li><span class="feature-check"><i class="fas fa-check-circle"></i></span> Regular mock tests</li>
+                        </ul>
+                        <div class="course-action">
+                            <a href="#contact" class="course-btn">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="back-btn-container" data-aos="fade-up">
+                <a href="index.html" class="back-btn">Back to Home</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Initialize AOS animation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize AOS
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true,
+                mirror: false
+            });
+            
+            // Handle category filter buttons
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // For this example, we're just toggling the active class
+                    // In a real implementation, you would filter the courses here
+                });
+            });
+            
+            // Add animation to course cards on hover
+            const courseCards = document.querySelectorAll('.course-card');
+            
+            courseCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.animation = 'pulse 1.5s infinite';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.animation = 'none';
+                });
+            });
+            
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
